@@ -1,0 +1,409 @@
+SQL> select upper(name) from emp1;
+
+UPPER(NAME
+----------
+RAVI
+VIJAY
+AJAY
+BHASKAR
+RAJ
+MANISH
+PRSAD
+RAKESH
+RAKESH
+
+RAJ
+
+11 rows selected.
+
+SQL> select lower(name) from emp1;
+
+LOWER(NAME
+----------
+ravi
+vijay
+ajay
+bhaskar
+raj
+manish
+prsad
+rakesh
+rakesh
+
+raj
+
+11 rows selected.
+
+SQL> select initcap(name) from emp1;
+
+INITCAP(NA
+----------
+Ravi
+Vijay
+Ajay
+Bhaskar
+Raj
+Manish
+Prsad
+Rakesh
+Rakesh
+
+Raj
+
+11 rows selected.
+
+SQL> select name || ' works as ' || designation as query from emp1;
+
+QUERY
+----------------------------------------
+Ravi works as project leader
+Vijay works as project manager
+Ajay works as technical head
+Bhaskar works as project director
+Raj works as project leader
+Manish works as developer
+PRSAD works as ceo
+Rakesh works as developer
+Rakesh works as developer
+Rahul works as developer
+Raj works as developer
+
+11 rows selected.
+
+SQL> select lpad(salary,10,'*') from emp1;
+
+LPAD(SALARY,10,'*')
+----------------------------------------
+****150000
+****120000
+****200000
+****230000
+****120000
+****170000
+****170000
+****185000
+****185000
+
+****185500
+
+11 rows selected.
+
+SQL> select rpad(salary,10,'*') from emp1;
+
+RPAD(SALARY,10,'*')
+----------------------------------------
+150000****
+120000****
+200000****
+230000****
+120000****
+170000****
+170000****
+185000****
+185000****
+
+185500****
+
+11 rows selected.
+
+SQL> select name, regexp_count(name,'[a-zA-Z]') as char_count from emp1;
+
+NAME       CHAR_COUNT
+---------- ----------
+Ravi                4
+Vijay               5
+Ajay                4
+Bhaskar             7
+Raj                 3
+Manish              6
+PRSAD               5
+Rakesh              6
+Rakesh              6
+Rahul               5
+Raj                 3
+
+11 rows selected.
+
+SQL> select email, substr(email,3,9) from emp1;
+
+EMAIL                SUBSTR(EMAIL,3,9)
+-------------------- ------------------------------------
+ravi@digisol.com     vi@digiso
+vijay@digisol.com    jay@digis
+ajay@digisol.com     ay@digiso
+bhaskar@digisol.com  askar@dig
+raj@digisol.com      j@digisol
+manish@digisol.com   nish@digi
+prasad@digisol.com   asad@digi
+
+
+
+raj2@digisol.com     j2@digiso
+
+SQL> select email, replace(email,'digisol','digitech') as new_email from emp1;
+
+EMAIL
+--------------------
+NEW_EMAIL
+--------------------------------------------------------------------------------
+ravi@digisol.com
+ravi@digitech.com
+
+vijay@digisol.com
+vijay@digitech.com
+
+ajay@digisol.com
+ajay@digitech.com
+
+
+EMAIL
+--------------------
+NEW_EMAIL
+--------------------------------------------------------------------------------
+bhaskar@digisol.com
+bhaskar@digitech.com
+
+raj@digisol.com
+raj@digitech.com
+
+manish@digisol.com
+manish@digitech.com
+
+
+EMAIL
+--------------------
+NEW_EMAIL
+--------------------------------------------------------------------------------
+prasad@digisol.com
+prasad@digitech.com
+
+
+
+
+
+
+
+
+EMAIL
+--------------------
+NEW_EMAIL
+--------------------------------------------------------------------------------
+
+
+
+raj2@digisol.com
+raj2@digitech.com
+
+
+11 rows selected.
+
+SQL> select concat(a.name,b.dep_name) from emp1 a natural join family_dependents b where a.empcode=b.empno;
+
+CONCAT(A.NAME,B.DEP_NAME)
+------------------------------
+RaviAARYA
+RaviAKANKSH
+RaviANITHA
+RajTuli
+
+SQL> select clientid, regexp_count(clientid,'\d') as num_count, regexp_count(clientid,'[a-zA-Z]') as char_count from client;
+
+CLI  NUM_COUNT CHAR_COUNT
+--- ---------- ----------
+C10          2          1
+C2           1          1
+C3           1          1
+C4           1          1
+C5           1          1
+C6           1          1
+C7           1          1
+C8           1          1
+C9           1          1
+
+9 rows selected.
+
+SQL> select rtrim(clientid), length(rtrim(clientid)) from client;
+
+RTR LENGTH(RTRIM(CLIENTID))
+--- -----------------------
+C10                       3
+C2                        2
+C3                        2
+C4                        2
+C5                        2
+C6                        2
+C7                        2
+C8                        2
+C9                        2
+
+9 rows selected.
+
+SQL> select ltrim(clientid), length(ltrim(clientid)) from client;
+
+LTR LENGTH(LTRIM(CLIENTID))
+--- -----------------------
+C10                       3
+C2                        3
+C3                        3
+C4                        3
+C5                        3
+C6                        3
+C7                        3
+C8                        3
+C9                        3
+
+9 rows selected.
+
+SQL> select trim(clientid), length(trim(clientid)) from client;
+
+TRI LENGTH(TRIM(CLIENTID))
+--- ----------------------
+C10                      3
+C2                       2
+C3                       2
+C4                       2
+C5                       2
+C6                       2
+C7                       2
+C8                       2
+C9                       2
+
+9 rows selected.
+
+SQL> select ascii('A') from dual;
+
+ASCII('A')
+----------
+        65
+
+SQL> select chr(65) from dual;
+
+C
+-
+A
+
+SQL> select trunc(123.456,2) from dual;
+
+TRUNC(123.456,2)
+----------------
+          123.45
+
+SQL> select sqrt(25),power(25,5) from dual;
+
+  SQRT(25) POWER(25,5)
+---------- -----------
+         5     9765625
+
+SQL> select round(123.456,2) from dual;
+
+ROUND(123.456,2)
+----------------
+          123.46
+
+SQL> select abs(-123),mod(123,10) from dual;
+
+ ABS(-123) MOD(123,10)
+---------- -----------
+       123           3
+
+SQL> select floor(234.36),ceil(-234.26),floor(-234.26),ceil(234.36) from dual;
+
+FLOOR(234.36) CEIL(-234.26) FLOOR(-234.26) CEIL(234.36)
+------------- ------------- -------------- ------------
+          234          -234           -235          235
+
+SQL>  select to_char(start_date,'DD-MONTH-YYYY'), to_char(end_date,'DD-MONTH-YYYY') FROM PRJ_DETAILS;
+
+TO_CHAR(START_DATE,'DD-MONTH-YYYY')
+--------------------------------------------
+TO_CHAR(END_DATE,'DD-MONTH-YYYY')
+--------------------------------------------
+10-JANUARY  -2020
+11-OCTOBER  -2022
+
+01-JANUARY  -2019
+10-JULY     -2021
+
+03-SEPTEMBER-2021
+10-OCTOBER  -2023
+
+
+TO_CHAR(START_DATE,'DD-MONTH-YYYY')
+--------------------------------------------
+TO_CHAR(END_DATE,'DD-MONTH-YYYY')
+--------------------------------------------
+28-FEBRUARY -2020
+09-JUNE     -2021
+
+07-AUGUST   -2018
+04-FEBRUARY -2020
+
+21-FEBRUARY -2022
+07-AUGUST   -2022
+
+
+TO_CHAR(START_DATE,'DD-MONTH-YYYY')
+--------------------------------------------
+TO_CHAR(END_DATE,'DD-MONTH-YYYY')
+--------------------------------------------
+
+
+
+20-JANUARY  -2022
+20-DECEMBER -2023
+
+
+8 rows selected.
+
+SQL> select extract(YEAR FROM start_date) as year, extract(month from start_date) from prj_details;
+
+      YEAR EXTRACT(MONTHFROMSTART_DATE)
+---------- ----------------------------
+      2020                            1
+      2019                            1
+      2021                            9
+      2020                            2
+      2018                            8
+      2022                            2
+      2020                            3
+      2022                            1
+
+8 rows selected.
+
+SQL> select prj_name, abs(months_between(start_date, end_date)) from prj_details;
+
+PRJ_NAME   ABS(MONTHS_BETWEEN(START_DATE,END_DATE))
+---------- ----------------------------------------
+SPYDER                                   33.0322581
+APOLLO                                   30.2903226
+UNICORN                                  25.2258065
+ZEUS                                     15.3870968
+JUPITOR                                  17.9032258
+MARS                                      5.5483871
+XXX                                              27
+HELLO                                            23
+
+8 rows selected.
+
+SQL> select prj_name, end_date, add_months(end_date,2) from prj_detail
+s;
+
+PRJ_NAME   END_DATE  ADD_MONTH
+---------- --------- ---------
+SPYDER     11-OCT-22 11-DEC-22
+APOLLO     10-JUL-21 10-SEP-21
+UNICORN    10-OCT-23 10-DEC-23
+ZEUS       09-JUN-21 09-AUG-21
+JUPITOR    04-FEB-20 04-APR-20
+MARS       07-AUG-22 07-OCT-22
+XXX        01-JUN-22 01-AUG-22
+HELLO      20-DEC-23 20-FEB-24
+
+8 rows selected.
+
+SQL> select current_date,next_day(current_date,'Thursday') as next_date from dual;
+
+CURRENT_D NEXT_DATE
+--------- ---------
+16-FEB-24 22-FEB-24
+

@@ -1,0 +1,157 @@
+emp table:
+insert into emp values (106, 'PRASAD', 'PHD', 1231231231, 'prasad@digisol.com', 'CEO', 100000, null); 
+insert into emp values (105, 'MANISH', 'MCA', 2231231231, 'manish@digisol.com', 'DEVELOPER', 100000, 106); 
+insert into emp values (110, 'BHASKAR', 'MTECH', 3231231231, 'bhaskar@digisol.com', 'PROJECT DIRECTOR', 100000, 106); 
+insert into emp values (102, 'VIJAY', 'BTECH', 4231231231, 'vijay@digisol.com', 'PROJECT MANAGER', 100000, 110); 
+insert into emp values (101, 'RAVI', 'MTECH', 5231231231, 'ravi@digisol.com', 'PROJECT LEADER', 100000, 102); 
+insert into emp values (100, 'RAJESH', 'BTECH', 6231231231, 'rajesh@digisol.com', 'DEVELOPER', 100000, 101); 
+insert into emp values (108, 'AJAY', 'BTECH', 7231231231, 'ajay@digisol.com', 'TECHNICAL HEAD', 100000, 102); 
+insert into emp values (111, 'RAJ', 'MSC', 8231231231, 'raj@digisol.com', 'PROJECT LEADER', 100000, 110); 
+insert into emp values (112, 'RAKESH', 'MTECH', 9231231231, 'rakesh@digisol.com', 'DEVELOPER', 100000, 101); 
+insert into emp values (113, 'RAM', 'BTECH', 9231231232, 'ram@digisol.com', 'DEVELOPER', 100000, 101); 
+commit;
+
+skill table:
+insert into skill values('S1', 'Full stack'); 
+insert into skill values('S2', 'Python'); 
+insert into skill values('S3', 'Java'); 
+insert into skill values('S4', 'C++'); 
+insert into skill values('S6', 'Oracle'); 
+insert into skill values('S7', 'Android'); 
+insert into skill values('S8', 'AZURE'); 
+insert into skill values('S9', 'DOT NET'); 
+insert into skill values('S10', 'IOS'); 
+commit;
+
+emp_skill table:
+insert into emp_skill values(100, 'S1', 15); 
+insert into emp_skill values(100, 'S3', 10); 
+insert into emp_skill values(101, 'S1', 6); 
+insert into emp_skill values(101, 'S2', 10); 
+insert into emp_skill values(102, 'S4', 18); 
+insert into emp_skill values(110, 'S1', 14); 
+insert into emp_skill values(110, 'S6', 20); 
+insert into emp_skill values(106, 'S2', 10); 
+insert into emp_skill values(106, 'S6', 12); 
+insert into emp_skill values(106, 'S8', 10); 
+insert into emp_skill values(108, 'S9', 5); 
+insert into emp_skill values(108, 'S6', 18); 
+insert into emp_skill values(105, 'S7', 12); 
+insert into emp_skill values(105, 'S10', 11); 
+insert into emp_skill values(101, 'S2', 7); 
+commit;
+
+
+prj_details table:
+insert into prj_details values('P1', 'SPYDER', '10-JAN-2020', '11-OCT-2022', '11-OCT-2022', 102, 2000000, 1990000); 
+insert into prj_details values('P2', 'APOLLO', '01-JAN-2019', '10-JUL-2021', '30-DEC-2021', 108, 3000000, 3600000); 
+insert into prj_details values('P3', 'UNICORN', '03-SEP-2021', '10-OCT-2023', '10-OCT-2023', 106, 7500000, 8000000); 
+insert into prj_details values('P4', 'ZEUS', '28-FEB-2020', '09-JUN-2021', '10-JAN-2022', 110, 5500000, 5000000); 
+insert into prj_details values('P5', 'JUPITOR', '07-AUG-2018', '04-FEB-2020', '01-NOV-2020', 110, 9000000, 9000000); 
+insert into prj_details values('P6', 'MARS', '21-FEB-2022', '07-AUG-2020', '07-AUG-2020', 110, 6000000, 5000000); 
+insert into prj_details values(null, 'XXX', '22-MAR-2023', '10-FEB-2024', '10-FEB-2024', 102, 4500000, 6000000); 
+insert into prj_details values('P7', 'Y', '15-AUG-2023', '15-AUG-2024', '16-AUG-2025', 123, 6600000, 7700000); 
+commit;
+
+client table:
+insert into client values('C1', 'ABC', '+48-87489389', 'aaa@abc.com'); 
+insert into client values('C2', 'LTS', '+91-78389397', 'bbb@lts.com'); 
+insert into client values('C3', 'RK', '+44-67838934', 'ccc@rk.com'); 
+insert into client values('C4', 'MMA', '+31-77839093', 'ddd@mma.com'); 
+insert into client values('C5', 'AKS', '+81-66822903', 'eee@aks.com'); 
+insert into client values('C6', 'GKS', '+78-75628982', 'fff@gks.com'); 
+insert into client values('C7', 'BB', '+91-64839839', 'ggg@bb.com'); 
+insert into client values('C8', 'ABT', '+97-67554667', 'hhh@abt.com'); 
+insert into client values('C9', 'XYZ', '+81-84489389', 'xyz@ab.com'); 
+commit;
+
+
+work_exp table:
+insert into work_exp values(100, 'P1', 20, 'C1', 'A'); 
+insert into work_exp values(100, 'P3', 15, 'C1', 'A'); 
+insert into work_exp values(101, 'P1', 16, 'C1', 'A'); 
+insert into work_exp values(102, 'P2', 18, 'C2', 'B'); 
+insert into work_exp values(102, 'P1', 18, 'C1', 'A'); 
+insert into work_exp values(108, 'P2', 12, 'C2', 'C'); 
+insert into work_exp values(106, 'P3', 20, 'C3', 'C'); 
+insert into work_exp values(106, 'P4', 10, 'C4', 'C'); 
+insert into work_exp values(105, 'P2', 19, 'C2', 'B'); 
+insert into work_exp values(110, 'P4', 12, 'C4', 'B'); 
+insert into work_exp values(110, 'P5', 16, 'C8', 'A'); 
+insert into work_exp values(105, 'P5', 5, 'C5', 'D'); 
+insert into work_exp values(111, 'P5', 5, 'C5', 'C'); 
+commit;
+ 
+
+family_dependents table:
+insert into family_dependents values(100, 'AJITH', 'SON', 12); 
+insert into family_dependents values(100, 'PRITHVI', 'DAUGHTER', 9); 
+insert into family_dependents values(101, 'AARYA', 'DAUGHTER', 17); 
+insert into family_dependents values(101, 'AKANKSH', 'SON', 11); 
+insert into family_dependents values(101, 'ANITHA', 'SPOUSE', 43); 
+commit;
+ 
+medical_policy table:
+insert into medical_policy values(100, 'MED001', 10000, '10-DEC-2020'); 
+insert into medical_policy values(101, 'MED003', 12000, '15-DEC-2020'); 
+insert into medical_policy values(100, 'MED001', 10000, '10-JAN-2021'); 
+insert into medical_policy values(101, 'MED003', 12000, '15-JAN-2021'); 
+insert into medical_policy values(103, 'MED004', 9000, '21-JAN-2021'); 
+commit;
+
+
+pay_check table:
+insert into pay_check(empcode, pay_date, regular_increment, other_incentives, advance_tax) values(100, '01-DEC-2020', 2000, 2500, 5000); 
+insert into pay_check(empcode, pay_date, regular_increment, other_incentives, advance_tax) values(101, '01-DEC-2020', 3000, 5000, 7000); 
+insert into pay_check(empcode, pay_date, regular_increment, other_incentives, advance_tax) values(102, '01-DEC-2020', 3000, 3600, 7000); 
+insert into pay_check(empcode, pay_date, regular_increment, other_incentives, advance_tax) values(100, '01-JAN-2021', 3000, 450, 4000); 
+insert into pay_check(empcode, pay_date, regular_increment, other_incentives, advance_tax) values(101, '01-JAN-2021', 5000, 2100, 4000); 
+insert into pay_check(empcode, pay_date, regular_increment, other_incentives, advance_tax) values(102, '01-JAN-2021', 5000, null, 9000); 
+insert into pay_check(empcode, pay_date, regular_increment, other_incentives, advance_tax) values(103, '02-JAN-2020', 7000, 900, 3000); 
+commit;
+
+
+delete from emp
+where empcode = 100;
+delete from family_dependency
+where empno = 100;
+delete from medical_policy
+where empno = 100;
+delete from pay_check
+where empcode = 100;
+delete from prj_details
+where empcode = 100;
+delete from emp_skill
+where empcode = 100;
+delete from work_exp
+where empcode = 100;
+
+update emp
+set email = 'rajesh@digital.com'
+where empcode = 100;
+
+update work_exp
+set prjid = 'P9'
+where empcode = 111;
+
+commit;
+delete from client
+where clientid = 'C1';
+
+commit;
+delete from family_dependents
+where empno = 100;
+rollback;
+
+update emp
+set salary = salary + 0.1*salary
+where designation = 'DEVELOPER';
+
+update emp
+set reports_to = 106
+where empcode = 108;
+
+update emp
+set reports_to = 117
+where empcode = 108;
+commit;

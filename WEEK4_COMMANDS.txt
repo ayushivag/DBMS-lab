@@ -1,0 +1,90 @@
+WEEK4_COMMANDS
+
+1)select * from client;
+
+2)
+ select NAME,PHONE,EMAIL
+ FROM EMP1
+ WHERE DESIGNATION='developer';
+
+3)
+SELECT NAME
+FROM EMP1
+WHERE EMPCODE=106;
+
+4)
+SELECT NAME,EMAIL
+FROM EMP1
+WHERE DESIGNATION='technical head'
+AND QUALIFICATION='BTECH';
+
+5)
+SELECT NAME
+FROM EMP1
+WHERE SALARY BETWEEN 100000 AND 200000;
+
+SELECT NAME
+FROM EMP1
+WHERE SALARY>100000 AND SALARY<200000;
+
+6)
+SELECT * FROM EMP_SKILL
+NATURAL JOIN SKILL 
+WHERE EMPNO=101;
+
+7)
+SELECT * FROM EMP_SKILL
+NATURAL JOIN SKILL 
+WHERE EMPNO=101;
+
+8)
+SELECT EMPCODE
+FROM WORK_EXP
+WHERE CLIENTID IN('C1','C2')
+AND rating IN('A','B');
+
+9)
+SELECT NAME
+FROM EMP1
+NATURAL JOIN WORK_EXP
+WHERE CLIENTID='C2'
+AND rating='B';
+
+10)
+SELECT COUNT(EMPNO)
+FROM EMP1
+NATURAL JOIN FAMILY_DEPENDENTS
+WHERE EMP1.NAME='RAVI'; 
+
+11) select name,designation,salary*12 annual_salary from emp1;
+
+12)select name,dep_name from emp1 left join family_dependents on emp1.empcode = family_dependents.empno;
+
+13)select PRJ_NAME,NAME from emp1 e join prj_details p on e.empcode=p.lead_by_empcode where BUDGET_ALLOCATED>=ACTUAL_BUDGET and ACTUAL_END_DATE<=END_DATE;
+
+14)select name,salary,pay_check.* from emp1 join pay_check on emp1.empcode=pay_check.empcode where to_char(pay_date,'mon')='jan';
+
+15)select e.name,s.name,s.phone from emp1 e join emp1 s on e.reports_to=s.empcode;
+
+16)select * from prj_details order by actual_end_date desc;
+
+17)select name,skillname from skill join emp_skill on skill.skillID = emp_skill.skillid join emp1 on empcode=empno order by empno,skill_experience desc;
+
+18)select name,dep_name,age from emp1 join family_dependents on empcode=empno where relationship='SON' order by name,age desc;
+
+19)select name,prj_name from emp1 natural join work_exp natural join prj_details order by name,prj_name desc;
+
+20)select name from emp1 natural join work_exp natural join prj_details where prj_name='SPYDER' union select name from emp1 natural join work_exp natural join prj_details where prj_name='APOLLO';
+
+
+21)select name from emp1 join emp_skill on empcode=empno join skill on emp_skill.skillid=skill.skillID where skillname='oracle' intersect select name from emp1 join emp_skill on empcode=empno join skill on emp_skill.skillid=skill.skillID where skillname='AZURE';
+
+22)SELECT name from emp1 minus select name from emp1 natural join work_exp natural join prj_details where prj_name='JUPITOR';
+
+23)select name from emp1 where reports_to is null;
+
+24)select name,email from emp1 where name like ('Ra%');
+
+25)select prj_name from prj_details where start_date between '01-JAN-2020' and '31-DEC-2020';
+
+26) select distinct name from emp join emp_skill on empcode=empno where skillid in (select skillid from emp_skill where empno=101);

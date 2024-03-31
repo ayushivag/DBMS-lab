@@ -1,0 +1,125 @@
+8.1
+#SET SERVEROUTPUT ON;
+CREATE OR REPLACE PROCEDURE withdrawal(acc NUMBER,withdrawal NUMBER) IS curbal NUMBER;
+BEGIN
+SELECT balance INTO curbal FROM account WHERE account_number=acc;
+IF (curbal-withdrawal)>=1000 THEN
+        UPDATE account SET balance=curbal-withdrawal WHERE account_number=acc;
+        DBMS_OUTPUT.PUT_LINE('Current Balance: '||curbal);
+        DBMS_OUTPUT.PUT_LINE('Withdrawal of '||withdrawal||' is Successful');
+        DBMS_OUTPUT.PUT_LINE('Updated Current Balance: '||(curbal-withdrawal));
+ELSE
+        DBMS_OUTPUT.PUT_LINE('Current Balance: '||curbal);
+        DBMS_OUTPUT.PUT_LINE('Insufficient fund to withdraw, try with lesser withdrawal amount.');
+END IF;
+END;
+/
+
+EXEC withdrawal(7,1700);
+
+Current Balance: 1500
+Insufficient fund to withdraw, try with lesser withdrawal amount.
+
+8.2
+#SET SERVEROUTPUT ON;
+CREATE OR REPLACE PROCEDURE hr(skill VARCHAR,skill_experience NUMBER) IS
+BEGIN
+FOR i IN (SELECT empcode,name FROM emp e JOIN (skill NATURAL JOIN emp_skill s) ON s.empno=e.empcode WHERE s.skill_experience>=skill_experience AND skillname=skill) LOOP
+        DBMS_OUTPUT.PUT_LINE(i.empcode||' - '|| i.name);
+END LOOP;
+END;
+/
+
+EXEC hr('Full Stack',10);
+
+100 - RAJESH
+101 - RAVI
+110 - BHASKAR
+
+8.3
+#SET SERVEROUTPUT ON;
+CREATE OR REPLACE PROCEDURE overbudget(prj IN VARCHAR,add_budget OUT NUMBER) IS
+BEGIN
+FOR i IN (SELECT budget_allocated, end_date-start_date AS duration, actual_end_date-end_date AS delay FROM prj_details WHERE prj_name=prj) LOOP
+	add_budget:=i.delay*i.budget_allocated/i.duration;
+END LOOP;
+END;
+
+DECLARE
+add_budget NUMBER;
+n VARCHAR(100);
+e VARCHAR(100);
+BEGIN
+FOR i IN (SELECT * FROM prj_details JOIN emp ON lead_by_empcode=empcode AND prj_name='&project_name') LOOP
+	DBMS_OUTPUT.PUT_LINE('Name of Project Leader: '||i.name);
+	SELECT name,email INTO n,e FROM emp WHERE empcode=i.reports_to;
+	DBMS_OUTPUT.PUT_LINE('Name and email of Employee to whom Project Leader reports to: '||n||', '||e);
+	overbudget(i.prj_name,add_budget);
+	DBMS_OUTPUT.PUT_LINE('Additional Budget Needed: '||CEIL(add_budget));
+END LOOP;
+END;
+/
+
+Enter value for project_name: HIGHLAND
+old   6: FOR i IN (SELECT * FROM prj_details JOIN emp ON lead_by_empcode=empcode AND prj_name='&proj
+new   6: FOR i IN (SELECT * FROM prj_details JOIN emp ON lead_by_empcode=empcode AND prj_name='HIGHL
+Name of Project Leader: HARSH
+Name and email of Employee to whom Project Leader reports to: VIJAY,
+vijay@digisol.com
+Additional Budget Needed: 2659
+
+8.4
+#SET SERVEROUTPUT ON;
+CREATE OR REPLACE FUNCTION incentive(pid VARCHAR) RETURN NUMBER IS
+BEGIN
+FOR i IN (SELECT * FROM work_exp NATURAL JOIN pay_check) LOOP
+	CASE i.rating
+	WHEN 'A' THEN RETURN 30000;
+	WHEN 'B' THEN RETURN 20000;
+	WHEN 'C' THEN RETURN 10000;
+	END CASE;
+END LOOP;
+END;
+/
+
+BEGIN
+DBMS_OUTPUT.PUT_LINE('Incentive= '||incentive('&Project_ID'));
+END;
+/
+
+Enter value for project_id: P1
+old   2: DBMS_OUTPUT.PUT_LINE('Incentive= '||incentive('&Project_ID'));
+new   2: DBMS_OUTPUT.PUT_LINE('Incentive= '||incentive('P1'));
+Incentive= 30000
+
+8.5
+#SET SERVEROUTPUT ON;
+CREATE OR REPLACE FUNCTION country(code VARCHAR) RETURN VARCHAR IS
+BEGIN
+FOR i IN (SELECT clientid FROM client WHERE phone LIKE (code||'%')) LOOP
+	RETURN i.clientid;
+END LOOP;
+END;
+/
+
+BEGIN
+DBMS_OUTPUT.PUT_LINE(country('+44'));
+END;
+/
+
+C3
+
+8.6
+#SET SERVEROUTPUT ON;
+CREATE OR REPLACE FUNCTION emailgen(name VARCHAR,empno NUMBER) RETURN VARCHAR IS
+BEGIN
+RETURN name||'_'||empno||'@digisol.com';
+END;
+/
+
+BEGIN
+DBMS_OUTPUT.PUT_LINE(emailgen('harsh',125));
+END;
+/
+
+harsh_125@digisol.com

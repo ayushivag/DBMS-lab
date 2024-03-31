@@ -1,0 +1,80 @@
+WEEK5_COMMANDS
+
+
+
+1)SELECT NAME
+FROM EMP
+WHERE DESIGNATION=(SELECT DESIGNATION FROM EMP WHERE EMPCODE=100);
+
+ 
+2)SELECT name FROM emp WHERE reports_to IN (SELECT empcode FROM emp WHERE name='VIJAY');
+
+
+
+3)SELECT NAME
+ FROM EMP
+ WHERE REPORTS_TO=(SELECT EMPCODE FROM EMP WHERE NAME='VIJAY');
+
+4)SELECT DISTINCT e.Name FROM Emp e JOIN FAMILY_DEPENDENTS fd ON e.EmpCode = fd.EMPNO WHERE fd.RELATIONSHIP = 'DAUGHTER';
+
+5)SELECT NAME
+  FROM EMP
+  WHERE EMPCODE NOT IN (
+  SELECT EMPCODE
+  FROM WORK_EXP
+  WHERE PRJID = (SELECT PRJID FROM PRJ_DETAILS WHERE PRJ_NAME='SPYDER'));
+
+
+6)SELECT Name FROM Emp WHERE EmpCode NOT IN (SELECT empcode FROM Work_Exp WHERE PrjId = 'P1');
+
+7)SELECT name FROM emp NATURAL JOIN work_exp WHERE work_experience > ALL (SELECT work_experience FROM work_exp WHERE prjid='P2');
+
+8)SELECT DISTINCT name FROM emp NATURAL JOIN work_exp WHERE (prjid,CLIENTID) IN (SELECT prjid, CLIENTID FROM work_exp WHERE empcode=100);
+
+
+9)SELECT DISTINCT e.NAME
+  FROM EMP e
+  WHERE e.EMPCODE NOT IN (
+  SELECT EMPCODE
+  FROM WORK_EXP
+  WHERE PRJID IN (
+  SELECT PRJID
+  FROM WORK_EXP
+  WHERE EMPCODE = 106));
+ 
+10)SELECT prj_name FROM prj_details p WHERE budget_allocated > (SELECT SUM(SALARY) FROM emp NATURAL JOIN work_exp we WHERE we.PRJID=p.PRJID);
+
+11)SELECT prj_name,COUNT(*) FROM prj_details NATURAL JOIN work_exp WHERE RATING IN ('A', 'B') GROUP BY prj_name ORDER BY COUNT(*) DESC;
+
+12)SELECT prj_name FROM prj_details NATURAL JOIN work_exp GROUP BY prj_name HAVING COUNT(empcode)>2;
+
+13)SELECT name,COUNT(DEP_NAME) FROM emp e LEFT JOIN family_dependents f ON e.empcode=f.empno GROUP BY name;
+
+14)SELECT EXTRACT(YEAR FROM policydate) AS Year, SUM(PREMIUM) FROM medical_policy GROUP BY EXTRACT(YEAR FROM policydate);
+
+15)WITH TotalSkillExperience AS (SELECT empno, SUM(skill_experience) AS TotalExperience FROM emp_skill GROUP BY empno) SELECT name FROM TotalSkillExperience t,emp e WHERE t.empno=e.empcode AND TotalExperience>20;
+
+16)CREATE TABLE emp_prj(
+emp_name VARCHAR(25),
+budget NUMERIC(10,2),
+project_name VARCHAR(100));
+
+INSERT INTO emp_prj (emp_Name,budget,project_name) SELECT e.name AS emp_name, pd.budget_allocated AS budget, pd.prj_name AS project_name FROM prj_details pd,emp e WHERE pd.lead_by_empcode=e.empcode AND pd.lead_by_empcode=110;
+
+17)UPDATE emp SET salary=CASE
+WHEN designation='PROJECT LEADER' THEN salary*1.10  
+WHEN designation='DEVELOPER' THEN salary*1.05  
+ELSE salary
+END;
+
+18)UPDATE emp_skill SET skill_experience=10 WHERE empno=106;
+
+SELECT * FROM emp_skill;
+
+19 ) CREATE VIEW emp_designation AS SELECT empcode AS empno,name,salary FROM emp WHERE DESIGNATION IN('DEVELOPER','PROJECT LEADER');
+
+UPDATE emp SET salary=100000 WHERE empcode=101;
+
+SELECT * FROM emp_designation;
+
+20 ) SELECT name,(SELECT COUNT(*) FROM work_exp w WHERE w.empcode=e.empcode) AS no_of_projects FROM emp e;

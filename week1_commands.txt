@@ -1,0 +1,68 @@
+ create table emp(
+empcode number(3) constraint pk_empno primary key ,
+name varchar(10),
+qualification varchar(7) constraint valid_qualif check(qualification in ('BTECH', 'MTECH', 'MSC', 'MCA', 'PHD')),
+phone number(10),
+email varchar(20) constraint email_domain check(email like '%@digisol.com'),
+designation varchar(20) constraint valid_designation check(designation in ('DEVELOPER', 'PROJECT LEADER', 'PROJECT MANAGER', 'TECHNICAL HEAD', 'PROJECT DIRECTOR', 'PROJECT LEADER', 'CEO')),
+salary number(7) constraint salary_range check(salary between 97000 and 300000));
+
+
+create table skill(
+skillid char(3) constraint unq_skillid unique,
+skillname varchar(20) constraint unq_skillname unique );
+
+create table emp_skill(
+empno number(3) constraint fk_empno references emp,
+skillid char(3) constraint fk_skillid references skill(skillid) on delete cascade,
+skill_experience number(3) constraint notnull_skillexp check(skill_experience > 0) );
+
+create table prj_details(
+prjid char(3) constraint pk_prjid check(prjid like 'P%') primary key,
+prj_name varchar(10),
+start_date date,
+end_date date ,
+actual_end_date date ,
+lead_by_empcode number(3) constraint fk_lead_emp references emp,
+budget_allocated number(10,1),
+actual_budget number(10,1),
+constraint end_date_greater_start_date check(end_date > start_date),
+check(actual_end_date >= end_date));
+
+create table client(
+clientid char(3) constraint startswith_c check(clientid like 'C%') constraint pk_clientid primary key,
+name varchar(10),
+phone char(14) constraint  phone_format check(phone like '+91%' or phone like '+81%' or phone like '+31%' or phone like '+48%' or phone like '+44%'));
+
+create table work_exp(
+empcode number(3) references emp,
+prjid char(3) check(prjid like 'P%') references prj_details,
+work_experience number(3) check(work_experience >= 0) not null,
+cleintid char(3) check(cleintid like 'C%') references client on delete set null,
+rating char(1) check(rating in ('A', 'B', 'C')),
+primary key (empcode, prjid ));
+
+create table family_dependents(
+empno number(3) references emp,
+dep_name varchar(20),
+relationship varchar(16),
+age number(3) constraint valid_age check(age between 1 and 130),
+primary key(empno, dep_name) );
+
+create table medical_policy(
+empno number(3) references emp,
+policyno varchar(6) check(policyno like 'MED%'),
+premium number(5) check(premium > 0),
+policydate date,
+primary key (empno, policyno) ); 
+
+create table pay_check(
+empcode number(3) references emp,
+pay_date date,
+regular_increment number(4) constraint valid_regu_incentive check(regular_increment in (2000, 3000, 5000, 7000, 9000)),
+performance_incentive number(5),
+da number(7),
+pf number(6),
+other_incentives number(4),
+advance_tax number(5),
+primary key (empcode, pay_date));
